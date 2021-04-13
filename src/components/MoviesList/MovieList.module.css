@@ -1,0 +1,12 @@
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  /* text-align: center; */
+  margin: -10px;
+  padding: 10px;
+}
+
+.card {
+  width: calc((100% - 8 * 10px) / 4);
+  margin: 10px;
+}

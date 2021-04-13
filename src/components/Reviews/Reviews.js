@@ -14,7 +14,7 @@ const Reviews = ({ match }) => {
   }, []);
   return (
     <>
-      <h6>Рецензии</h6>
+      <h5>Reviews</h5>
       {reviews.length > 0 ? (
         <ul>
           {reviews.map(({ id, content, author }) => (

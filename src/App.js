@@ -1,16 +1,11 @@
 import { Route, NavLink, Switch } from 'react-router-dom';
-import { useEffect } from 'react';
-import filmsApi from './services/films-api';
+
 import Container from './components/Container';
 import HomePage from './views/HomePage';
 import MoviesPage from './views/MoviesPage';
 import MovieDetailsPage from './views/MovieDetailsPage';
 
 function App() {
-  useEffect(() => {
-    // filmsApi.fetchhMovieReviews();
-  }, []);
-
   return (
     <Container>
       <ul>

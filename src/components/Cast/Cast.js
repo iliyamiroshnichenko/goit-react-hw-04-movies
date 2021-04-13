@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import filmsApi from '../../services/films-api';
+import styles from './Cast.module.css';
+import defaultAvatar from '../../images/default-avatar.png';
 
 const Cast = ({ match }) => {
   const [cast, setCast] = useState([]);
@@ -14,21 +16,22 @@ const Cast = ({ match }) => {
   }, []);
   return (
     <>
-      <h5>инфо о касте</h5>
-      <ul>
-        {cast.map(({ id, name, character, profile_path }) => (
-          <li key={id}>
-            {profile_path && (
-              <img
-                src={`https://image.tmdb.org/t/p/w500${profile_path}`}
-                alt={name}
-                width="120"
-              />
-            )}
-            <span>{name} </span>as
-            <span> {character}</span>
-          </li>
-        ))}
+      <h5>Cast: </h5>
+      <ul className={styles.flex}>
+        {cast.map(({ id, name, character, profile_path }) => {
+          const imgUrl = profile_path
+            ? `https://image.tmdb.org/t/p/w500${profile_path}`
+            : defaultAvatar;
+          return (
+            <li key={id} className={styles.card}>
+              <img src={imgUrl} alt={name} />
+              <div>
+                <p>{name} </p>
+                <p> {character}</p>
+              </div>
+            </li>
+          );
+        })}
       </ul>
     </>
   );

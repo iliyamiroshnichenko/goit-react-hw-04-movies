@@ -3,6 +3,7 @@ import { NavLink, Route } from 'react-router-dom';
 import filmsApi from '../services/films-api';
 import Cast from '../components/Cast';
 import Reviews from '../components/Reviews';
+import MovieDetail from '../components/MovieDetail';
 
 const MovieDetailsPage = ({ match }) => {
   const [movie, setMovie] = useState({
@@ -11,8 +12,9 @@ const MovieDetailsPage = ({ match }) => {
     poster_path: null,
     genres: null,
     release_date: '',
+    vote_average: '',
   });
-  const { title, overview, poster_path, genres, release_date } = movie;
+
   const movieId = Number(match.params.movieId);
 
   useEffect(() => {
@@ -26,23 +28,15 @@ const MovieDetailsPage = ({ match }) => {
     }
     fetchdata();
   }, []);
+
   return (
     <>
-      <h1>Это страница с детальной информацией о кинофильме</h1>
-      {poster_path && (
-        <img
-          src={`https://image.tmdb.org/t/p/w500${poster_path}`}
-          alt={title}
-          width="320"
-        />
+      {movie.poster_path ? (
+        <MovieDetail movie={movie} />
+      ) : (
+        <h2>Sorry, details not found</h2>
       )}
-      <h2>{title}</h2>
-      <p>{release_date}</p>
-      <p>{overview}</p>
-      <h3>Genres</h3>
-      <ul>
-        {genres && genres.map(({ id, name }) => <li key={id}>{name}</li>)}
-      </ul>
+
       <ul>
         <li>
           <NavLink to={`${match.url}/cast`}>Cast</NavLink>

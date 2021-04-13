@@ -15,7 +15,7 @@ const fetchTrendingMovies = () => {
 const searchMovie = (query = 'Batman') => {
   return axios
     .get(`/search/movie?query=${query}`)
-    .then(({ data: { results } }) => console.log(results));
+    .then(({ data: { results } }) => results);
 };
 
 const fetchhMovieInfo = (movieId = 414) => {

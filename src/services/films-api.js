@@ -9,7 +9,7 @@ axios.defaults.params = {
 const fetchTrendingMovies = () => {
   return axios
     .get(`/trending/all/day`)
-    .then(({ data: { results } }) => console.log(results));
+    .then(({ data: { results } }) => results);
 };
 
 const searchMovie = (query = 'Batman') => {
@@ -18,4 +18,26 @@ const searchMovie = (query = 'Batman') => {
     .then(({ data: { results } }) => console.log(results));
 };
 
-export default { fetchTrendingMovies, searchMovie };
+const fetchhMovieInfo = (movieId = 414) => {
+  return axios.get(`/movie/${movieId}`).then(({ data }) => data);
+};
+
+const fetchhMovieCast = (movieId = 414) => {
+  return axios
+    .get(`/movie/${movieId}/credits`)
+    .then(({ data: { cast } }) => cast);
+};
+
+const fetchhMovieReviews = (movieId = 414) => {
+  return axios
+    .get(`/movie/${movieId}/reviews`)
+    .then(({ data: { results } }) => results);
+};
+
+export default {
+  fetchTrendingMovies,
+  searchMovie,
+  fetchhMovieInfo,
+  fetchhMovieCast,
+  fetchhMovieReviews,
+};

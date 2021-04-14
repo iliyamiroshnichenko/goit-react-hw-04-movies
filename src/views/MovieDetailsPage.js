@@ -5,7 +5,7 @@ import Cast from '../components/Cast';
 import Reviews from '../components/Reviews';
 import MovieDetail from '../components/MovieDetail';
 
-const MovieDetailsPage = ({ match }) => {
+const MovieDetailsPage = ({ match, history, location: { state } }) => {
   const [movie, setMovie] = useState({
     title: null,
     overview: null,
@@ -29,8 +29,15 @@ const MovieDetailsPage = ({ match }) => {
     fetchdata();
   }, []);
 
+  const handleGoBack = () => {
+    history.push({ pathname: state.from, state });
+  };
+
   return (
     <>
+      <button type="button" onClick={handleGoBack}>
+        Go back
+      </button>
       {movie.poster_path ? (
         <MovieDetail movie={movie} />
       ) : (

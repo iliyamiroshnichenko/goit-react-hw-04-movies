@@ -1,4 +1,4 @@
-import { Route, NavLink, Switch } from 'react-router-dom';
+import { Route, NavLink, Switch, Redirect } from 'react-router-dom';
 
 import Container from './components/Container';
 import HomePage from './views/HomePage';
@@ -33,6 +33,7 @@ function App() {
         <Route exact path="/" component={HomePage} />
         <Route exact path="/movies" component={MoviesPage} />
         <Route path="/movies/:movieId" component={MovieDetailsPage} />
+        <Redirect to="/" />
       </Switch>
     </Container>
   );

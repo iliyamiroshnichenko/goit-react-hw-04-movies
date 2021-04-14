@@ -1,11 +1,20 @@
-import { useState } from 'react';
-import { Route, Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import filmsApi from '../services/films-api';
 import MoviesList from '../components/MoviesList';
 
-const MoviesPage = ({ match }) => {
-  const [inputquery, setInputQuery] = useState('');
+const MoviesPage = ({ match, location: { state } }) => {
+  const backQuery = state ? state.query : '';
+  const [inputquery, setInputQuery] = useState(backQuery);
   const [movies, setMovies] = useState([]);
+  const history = useHistory();
+
+  useEffect(() => {
+    if (!backQuery) return;
+    filmsApi.searchMovie(inputquery).then(query => {
+      setMovies(query);
+    });
+  }, []);
 
   const handleChange = e => {
     setInputQuery(e.currentTarget.value);
@@ -15,7 +24,8 @@ const MoviesPage = ({ match }) => {
     e.preventDefault();
     filmsApi.searchMovie(inputquery).then(query => {
       setMovies(query);
-      setInputQuery('');
+      history.push(`?query=${inputquery}`);
+      // setInputQuery('');
     });
   };
   return (
@@ -30,7 +40,8 @@ const MoviesPage = ({ match }) => {
         />
         <button type="submit">Search</button>
       </form>
-      <MoviesList movies={movies} />
+      {movies.length === 0 && <p>No results</p>}
+      <MoviesList movies={movies} query={inputquery} from={match.path} />
     </>
   );
 };

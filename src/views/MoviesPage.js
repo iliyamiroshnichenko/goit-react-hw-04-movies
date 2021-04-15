@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import filmsApi from '../services/films-api';
 import MoviesList from '../components/MoviesList';
 
-const MoviesPage = ({ match, location }) => {
-  const [inputquery, setInputQuery] = useState(location.state?.query || '');
-  const [movies, setMovies] = useState([]);
+const MoviesPage = ({ match }) => {
   const history = useHistory();
+  const location = useLocation();
+  const [inputquery, setInputQuery] = useState(location?.state?.query || '');
+  const [movies, setMovies] = useState([]);
 
   useEffect(() => {
     if (!inputquery) return;
@@ -40,7 +41,7 @@ const MoviesPage = ({ match, location }) => {
         <button type="submit">Search</button>
       </form>
       {movies.length === 0 && <p>No results</p>}
-      <MoviesList movies={movies} query={inputquery} from={match.path} />
+      <MoviesList movies={movies} query={inputquery} />
     </>
   );
 };

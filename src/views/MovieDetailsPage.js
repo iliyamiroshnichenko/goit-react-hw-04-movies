@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
-import { NavLink, Route } from 'react-router-dom';
+import { NavLink, Route, useHistory, useLocation } from 'react-router-dom';
 import filmsApi from '../services/films-api';
 import Cast from '../components/Cast';
 import Reviews from '../components/Reviews';
 import MovieDetail from '../components/MovieDetail';
+import routes from '../routes';
 
-const MovieDetailsPage = ({ match, history, location: { state } }) => {
+const MovieDetailsPage = ({ match }) => {
   const [movie, setMovie] = useState({
     title: null,
     overview: null,
@@ -14,6 +15,8 @@ const MovieDetailsPage = ({ match, history, location: { state } }) => {
     release_date: '',
     vote_average: '',
   });
+  const { state } = useLocation();
+  const history = useHistory();
 
   const movieId = Number(match.params.movieId);
 
@@ -30,7 +33,11 @@ const MovieDetailsPage = ({ match, history, location: { state } }) => {
   }, []);
 
   const handleGoBack = () => {
-    history.push({ pathname: state?.from || '/', state });
+    history.push({
+      pathname: state?.from.pathname || routes.home,
+      search: state?.from.search,
+      state,
+    });
   };
 
   return (
@@ -43,15 +50,17 @@ const MovieDetailsPage = ({ match, history, location: { state } }) => {
       ) : (
         <h2>Sorry, details not found</h2>
       )}
-
-      <ul>
-        <li>
-          <NavLink to={`${match.url}/cast`}>Cast</NavLink>
-        </li>
-        <li>
-          <NavLink to={`${match.url}/reviews`}>Reviews</NavLink>
-        </li>
-      </ul>
+      <div>
+        <p>Additional information</p>
+        <ul>
+          <li>
+            <NavLink to={`${match.url}/cast`}>Cast</NavLink>
+          </li>
+          <li>
+            <NavLink to={`${match.url}/reviews`}>Reviews</NavLink>
+          </li>
+        </ul>
+      </div>
       <Route path={`${match.path}/cast`} component={Cast} />
       <Route path={`${match.path}/reviews`} component={Reviews} />
     </>

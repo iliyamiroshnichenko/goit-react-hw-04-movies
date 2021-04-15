@@ -15,7 +15,7 @@ const HomePage = ({ match }) => {
   return (
     <>
       <h1 className="Homepage-title">The most popular movies today</h1>
-      <MoviesList movies={movies} from={match.path} />
+      <MoviesList movies={movies} />
     </>
   );
 };

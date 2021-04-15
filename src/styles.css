@@ -32,6 +32,10 @@ ul {
   color: black;
 }
 
+.Navlink:not(:last-child) {
+  margin-right: 15px;
+}
+
 .Navlink--active {
   color: red;
 }

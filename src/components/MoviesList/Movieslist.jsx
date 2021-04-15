@@ -1,8 +1,8 @@
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import styles from './MovieList.module.css';
 import unnamed from '../../images/unnamed.jpg';
 
-const MoviesList = ({ movies, query = '', from = '' }) => {
+const MoviesList = ({ movies, location, query = '' }) => {
   return (
     <>
       <ul className={styles.list}>
@@ -12,7 +12,12 @@ const MoviesList = ({ movies, query = '', from = '' }) => {
             : unnamed;
           return (
             <li key={id} className={styles.card}>
-              <Link to={{ pathname: `/movies/${id}`, state: { query, from } }}>
+              <Link
+                to={{
+                  pathname: `/movies/${id}`,
+                  state: { from: location, query },
+                }}
+              >
                 <img src={imgUrl} alt={title} />
                 <p>{title ? title : name}</p>
               </Link>
@@ -24,4 +29,4 @@ const MoviesList = ({ movies, query = '', from = '' }) => {
   );
 };
 
-export default MoviesList;
+export default withRouter(MoviesList);

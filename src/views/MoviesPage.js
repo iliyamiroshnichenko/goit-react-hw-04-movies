@@ -3,14 +3,13 @@ import { useHistory } from 'react-router-dom';
 import filmsApi from '../services/films-api';
 import MoviesList from '../components/MoviesList';
 
-const MoviesPage = ({ match, location: { state } }) => {
-  const backQuery = state ? state.query : '';
-  const [inputquery, setInputQuery] = useState(backQuery);
+const MoviesPage = ({ match, location }) => {
+  const [inputquery, setInputQuery] = useState(location.state?.query || '');
   const [movies, setMovies] = useState([]);
   const history = useHistory();
 
   useEffect(() => {
-    if (!backQuery) return;
+    if (!inputquery) return;
     filmsApi.searchMovie(inputquery).then(query => {
       setMovies(query);
     });
@@ -24,7 +23,7 @@ const MoviesPage = ({ match, location: { state } }) => {
     e.preventDefault();
     filmsApi.searchMovie(inputquery).then(query => {
       setMovies(query);
-      history.push(`?query=${inputquery}`);
+      history.push({ ...location, search: `?query=${inputquery}` });
       // setInputQuery('');
     });
   };

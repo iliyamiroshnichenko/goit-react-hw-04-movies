@@ -30,7 +30,7 @@ const MovieDetailsPage = ({ match, history, location: { state } }) => {
   }, []);
 
   const handleGoBack = () => {
-    history.push({ pathname: state.from, state });
+    history.push({ pathname: state?.from || '/', state });
   };
 
   return (

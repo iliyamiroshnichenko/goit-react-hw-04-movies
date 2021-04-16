@@ -48,7 +48,7 @@ const MovieDetailsPage = ({ match }) => {
 
   return (
     <>
-      <button type="button" onClick={handleGoBack}>
+      <button type="button" className="btn" onClick={handleGoBack}>
         Go back
       </button>
       {movie.poster_path ? (
@@ -57,13 +57,29 @@ const MovieDetailsPage = ({ match }) => {
         <h2>Sorry, details not found</h2>
       )}
       <div>
-        <p>Additional information</p>
-        <ul>
+        <h3>Additional information</h3>
+        <ul className="add-info-block">
           <li>
-            <NavLink to={`${match.url}/cast`}>Cast</NavLink>
+            <NavLink
+              className="add-info"
+              to={{
+                pathname: `${match.url}/cast`,
+                state,
+              }}
+            >
+              Cast
+            </NavLink>
           </li>
           <li>
-            <NavLink to={`${match.url}/reviews`}>Reviews</NavLink>
+            <NavLink
+              className="add-info"
+              to={{
+                pathname: `${match.url}/reviews`,
+                state,
+              }}
+            >
+              Reviews
+            </NavLink>
           </li>
         </ul>
       </div>

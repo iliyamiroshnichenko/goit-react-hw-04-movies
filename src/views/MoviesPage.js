@@ -32,12 +32,16 @@ const MoviesPage = () => {
       <h1>Search your favourite movie</h1>
       <form onSubmit={handleSubmit}>
         <input
+          className="input"
           type="text"
           value={inputquery}
           autoComplete="off"
+          autoFocus
           onChange={handleChange}
         />
-        <button type="submit">Search</button>
+        <button type="submit" className="btn">
+          Search
+        </button>
       </form>
       {movies.length === 0 && <p>No results</p>}
       <MoviesList movies={movies} query={inputquery} />

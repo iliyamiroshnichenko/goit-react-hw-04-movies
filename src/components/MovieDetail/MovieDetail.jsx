@@ -41,7 +41,7 @@ MovieDetail.propTypes = {
     poster_path: PropTypes.string.isRequired,
     release_date: PropTypes.string.isRequired,
     vote_average: PropTypes.number.isRequired,
-    genres: PropTypes.arrayOf(PropTypes.string),
+    genres: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   }),
 };
 

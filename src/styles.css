@@ -21,6 +21,7 @@ img {
 }
 
 a {
+  color: inherit;
   text-decoration: none;
 }
 
@@ -29,6 +30,8 @@ ul {
 }
 
 .Navlink {
+  padding: 10px;
+  border-radius: 10px;
   color: black;
 }
 
@@ -37,9 +40,42 @@ ul {
 }
 
 .Navlink--active {
-  color: red;
+  background-color: orange;
+  color: #fff;
 }
 
 .Homepage-title {
   text-align: center;
+}
+
+.input {
+  padding: 5px;
+  border: none;
+  border-radius: 5px;
+  margin-right: 25px;
+}
+
+.btn {
+  min-width: 80px;
+  padding: 5px;
+  border: 2px solid rgb(224, 99, 15);
+  border-radius: 5px;
+  background-color: orange;
+}
+
+.add-info-block {
+  display: flex;
+}
+
+.add-info {
+  text-align: center;
+  font-size: 18px;
+  padding: 7px;
+  border: 2px solid black;
+  border-radius: 10px;
+  background-color: orange;
+}
+
+.add-info-block > li:not(:last-child) {
+  margin-right: 15px;
 }

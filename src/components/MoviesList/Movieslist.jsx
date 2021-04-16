@@ -1,8 +1,9 @@
 import { Link, withRouter, useLocation } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import styles from './MovieList.module.css';
 import unnamed from '../../images/unnamed.jpg';
 
-const MoviesList = ({ movies, query = '' }) => {
+const MoviesList = ({ movies, query }) => {
   const location = useLocation();
   return (
     <>
@@ -28,6 +29,15 @@ const MoviesList = ({ movies, query = '' }) => {
       </ul>
     </>
   );
+};
+
+MoviesList.defaultProps = {
+  query: '',
+};
+
+MoviesList.propTypes = {
+  movies: PropTypes.arrayOf(PropTypes.shape({})),
+  query: PropTypes.string,
 };
 
 export default withRouter(MoviesList);

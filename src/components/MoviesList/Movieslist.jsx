@@ -1,8 +1,9 @@
-import { Link, withRouter } from 'react-router-dom';
+import { Link, withRouter, useLocation } from 'react-router-dom';
 import styles from './MovieList.module.css';
 import unnamed from '../../images/unnamed.jpg';
 
-const MoviesList = ({ movies, location, query = '' }) => {
+const MoviesList = ({ movies, query = '' }) => {
+  const location = useLocation();
   return (
     <>
       <ul className={styles.list}>

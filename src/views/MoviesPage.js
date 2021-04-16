@@ -3,7 +3,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 import filmsApi from '../services/films-api';
 import MoviesList from '../components/MoviesList';
 
-const MoviesPage = ({ match }) => {
+const MoviesPage = () => {
   const history = useHistory();
   const location = useLocation();
   const [inputquery, setInputQuery] = useState(location?.state?.query || '');
@@ -25,7 +25,6 @@ const MoviesPage = ({ match }) => {
     filmsApi.searchMovie(inputquery).then(query => {
       setMovies(query);
       history.push({ ...location, search: `?query=${inputquery}` });
-      // setInputQuery('');
     });
   };
   return (

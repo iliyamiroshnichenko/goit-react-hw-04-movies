@@ -38,6 +38,3 @@ const Cast = ({ match }) => {
 };
 
 export default Cast;
-
-//    <p>Name: {name}</p>
-//       <p>Character: {character}</p>

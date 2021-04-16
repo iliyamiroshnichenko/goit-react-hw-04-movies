@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import filmsApi from '../services/films-api';
 import MoviesList from '../components/MoviesList';
 
-const HomePage = ({ match }) => {
+const HomePage = () => {
   const [movies, setMovies] = useState([]);
   useEffect(() => {
     async function fetchdata() {

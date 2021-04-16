@@ -1,10 +1,16 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense, lazy } from 'react';
 import { NavLink, Route, useHistory, useLocation } from 'react-router-dom';
 import filmsApi from '../services/films-api';
-import Cast from '../components/Cast';
-import Reviews from '../components/Reviews';
 import MovieDetail from '../components/MovieDetail';
 import routes from '../routes';
+import Loader from '../components/Loader';
+
+const Cast = lazy(() =>
+  import('../components/Cast' /* webpackChunkName: "cast" */),
+);
+const Reviews = lazy(() =>
+  import('../components/Reviews' /* webpackChunkName: "reviews" */),
+);
 
 const MovieDetailsPage = ({ match }) => {
   const [movie, setMovie] = useState({
@@ -61,8 +67,10 @@ const MovieDetailsPage = ({ match }) => {
           </li>
         </ul>
       </div>
-      <Route path={`${match.path}/cast`} component={Cast} />
-      <Route path={`${match.path}/reviews`} component={Reviews} />
+      <Suspense fallback={<Loader />}>
+        <Route path={`${match.path}/cast`} component={Cast} />
+        <Route path={`${match.path}/reviews`} component={Reviews} />
+      </Suspense>
     </>
   );
 };

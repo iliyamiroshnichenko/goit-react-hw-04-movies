@@ -83,3 +83,14 @@ ul {
 .add-info-block > li:not(:last-child) {
   margin-right: 15px;
 }
+
+.fade-enter {
+  opacity: 0;
+  transform: translateX(-100%);
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transform: translateX(0%);
+  transition: all 1500ms ease-in-out;
+}

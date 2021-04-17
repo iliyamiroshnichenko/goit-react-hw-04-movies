@@ -10,3 +10,7 @@
   width: calc((100% - 8 * 10px) / 4);
   margin: 10px;
 }
+
+.card:hover {
+  transform: scale(1.02);
+}

@@ -62,6 +62,7 @@ const MovieDetailsPage = ({ match }) => {
           <li>
             <NavLink
               className="add-info"
+              activeClassName="add-info--active"
               to={{
                 pathname: `${match.url}/cast`,
                 state,
@@ -73,6 +74,7 @@ const MovieDetailsPage = ({ match }) => {
           <li>
             <NavLink
               className="add-info"
+              activeClassName="add-info--active"
               to={{
                 pathname: `${match.url}/reviews`,
                 state,

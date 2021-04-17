@@ -71,8 +71,12 @@ ul {
   text-align: center;
   font-size: 18px;
   padding: 7px;
-  border: 2px solid black;
+  border: 2px solid rgb(190, 98, 36);
   border-radius: 10px;
+}
+
+.add-info--active {
+  color: #fff;
   background-color: orange;
 }
 

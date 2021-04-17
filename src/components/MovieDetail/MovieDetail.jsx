@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import unnamed from '../../images/unnamed.jpg';
 import styles from './MovieDetail.module.css';
 
 const MovieDetail = ({ movie }) => {
@@ -11,14 +12,14 @@ const MovieDetail = ({ movie }) => {
     vote_average,
   } = movie;
 
+  const imgUrl = poster_path
+    ? `https://image.tmdb.org/t/p/w500${poster_path}`
+    : unnamed;
+
   return (
     <>
       <div className={styles.flex}>
-        <img
-          src={`https://image.tmdb.org/t/p/w500${poster_path}`}
-          alt={title}
-          width="320"
-        />
+        <img src={imgUrl} alt={title} width="320" />
         <div className={styles.info}>
           <h2>{title}</h2>
           <p>Release date: {release_date}</p>
@@ -36,9 +37,9 @@ const MovieDetail = ({ movie }) => {
 
 MovieDetail.propTypes = {
   movie: PropTypes.shape({
-    title: PropTypes.string.isRequired,
+    title: PropTypes.string,
     overview: PropTypes.string.isRequired,
-    poster_path: PropTypes.string.isRequired,
+    poster_path: PropTypes.string,
     release_date: PropTypes.string.isRequired,
     vote_average: PropTypes.number.isRequired,
     genres: PropTypes.arrayOf(PropTypes.shape({})).isRequired,

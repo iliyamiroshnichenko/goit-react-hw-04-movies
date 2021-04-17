@@ -21,20 +21,27 @@ const MovieDetailsPage = ({ match }) => {
     release_date: '',
     vote_average: '',
   });
+  const [error, setError] = useState(false);
   const { state } = useLocation();
   const history = useHistory();
 
   const movieId = Number(match.params.movieId);
 
-  useEffect(() => {
-    async function fetchdata() {
+  const fetchdata = async () => {
+    try {
       const movieInfo = await filmsApi.fetchhMovieInfo(movieId);
       const normalizedDate = await movieInfo.release_date
         .split('-')
         .reverse()
         .join('.');
       setMovie({ ...movieInfo, release_date: normalizedDate });
+      setError(false);
+    } catch (err) {
+      setError(`${err}`);
     }
+  };
+
+  useEffect(() => {
     fetchdata();
   }, []);
 
@@ -51,11 +58,8 @@ const MovieDetailsPage = ({ match }) => {
       <button type="button" className="btn" onClick={handleGoBack}>
         Go back
       </button>
-      {movie.poster_path ? (
-        <MovieDetail movie={movie} />
-      ) : (
-        <h2>Sorry, details not found</h2>
-      )}
+      {error && <p>Oops, something went wrong... {error}</p>}
+      <MovieDetail movie={movie} />
       <div>
         <h3>Additional information</h3>
         <ul className="add-info-block">

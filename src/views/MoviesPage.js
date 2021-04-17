@@ -8,12 +8,22 @@ const MoviesPage = () => {
   const location = useLocation();
   const [inputquery, setInputQuery] = useState(location?.state?.query || '');
   const [movies, setMovies] = useState([]);
+  const [error, setError] = useState(false);
+
+  const fetchdata = async () => {
+    try {
+      const moviesRes = await filmsApi.searchMovie(inputquery);
+      setMovies(moviesRes);
+      setError(false);
+      history.push({ ...location, search: `?query=${inputquery}` });
+    } catch (err) {
+      setError(`${err}`);
+    }
+  };
 
   useEffect(() => {
     if (!inputquery) return;
-    filmsApi.searchMovie(inputquery).then(query => {
-      setMovies(query);
-    });
+    fetchdata();
   }, []);
 
   const handleChange = e => {
@@ -22,10 +32,7 @@ const MoviesPage = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    filmsApi.searchMovie(inputquery).then(query => {
-      setMovies(query);
-      history.push({ ...location, search: `?query=${inputquery}` });
-    });
+    fetchdata();
   };
   return (
     <>
@@ -43,6 +50,7 @@ const MoviesPage = () => {
           Search
         </button>
       </form>
+      {error && <p>Oops, something went wrong... {error}</p>}
       {movies.length === 0 && <p>No results</p>}
       <MoviesList movies={movies} query={inputquery} />
     </>

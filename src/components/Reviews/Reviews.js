@@ -3,19 +3,27 @@ import filmsApi from '../../services/films-api';
 
 const Reviews = ({ match }) => {
   const [reviews, setReviews] = useState([]);
+  const [error, setError] = useState(false);
   const movieId = Number(match.params.movieId);
 
-  useEffect(() => {
-    async function fetchdata() {
+  const fetchdata = async () => {
+    try {
       const movieReviews = await filmsApi.fetchhMovieReviews(movieId);
       setReviews(movieReviews);
+      setError(false);
+    } catch (err) {
+      setError(`${err}`);
     }
+  };
+
+  useEffect(() => {
     fetchdata();
   }, []);
   return (
     <>
       <h5>Reviews</h5>
-      {reviews.length > 0 ? (
+      {error && <p>Oops, something went wrong... {error}</p>}
+      {reviews.length > 0 && !error ? (
         <ul>
           {reviews.map(({ id, content, author }) => (
             <li key={id}>
